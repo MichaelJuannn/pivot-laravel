@@ -21,6 +21,13 @@ class ReportController extends Controller
 
         $total_penjualan_makanan_per_bulan = [];
         $total_penjualan_minuman_per_bulan = [];
+        foreach ($menuItems as $menuItem) {
+            if ($menuItem['kategori'] == 'makanan') {
+                $total_penjualan_makanan_per_bulan[$menuItem['menu']] = array_fill_keys(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], 0);
+            } else if ($menuItem['kategori'] == 'minuman') {
+                $total_penjualan_minuman_per_bulan[$menuItem['menu']] = array_fill_keys(['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], 0);
+            }
+        }
         foreach ($transaction as $key => $value) {
             $tanggal = $value["tanggal"];
             $bulan = date("F", strtotime($tanggal));
@@ -56,6 +63,6 @@ class ReportController extends Controller
             }
         }
 
-        return view('report.index', ['total_penjualan_makanan' => $total_penjualan_makanan_per_bulan, 'total_penjualan_minuman' => $total_penjualan_minuman_per_bulan]);
+        return view('report.index', ['tahun' => $tahun, 'total_penjualan_makanan' => $total_penjualan_makanan_per_bulan, 'total_penjualan_minuman' => $total_penjualan_minuman_per_bulan]);
     }
 }

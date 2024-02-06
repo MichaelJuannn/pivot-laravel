@@ -13,10 +13,12 @@
                 <div class="row">
                     <div class="col-2">
                         <div class="form-group">
-                            <select class="form-control" name="tahun" id="my-select" onchange="location = this.value">
+                            <select class="form-control" name="tahun" id="my-select" onchange="location = this.value;">
                                 <option value="">Pilih Tahun</option>
-                                <option value="?tahun=2021">2021</option>
-                                <option value="?tahun=2022">2022</option>
+                                <option value="?tahun=2021" {{ request()->get('tahun') == '2021' ? 'selected' : ''
+                                    }}>2021</option>
+                                <option value="?tahun=2022" {{ request()->get('tahun') == '2022' ? 'selected' : ''
+                                    }}>2022</option>
                             </select>
                         </div>
                     </div>
@@ -33,7 +35,7 @@
 
                         <tr class="table-dark">
                             <th rowspan="2" style="text-align:center;vertical-align: middle;width: 250px;">Menu</th>
-                            <th colspan="12" style="text-align: center;">Periode Pada 2021
+                            <th colspan="12" style="text-align: center;">Periode Pada {{$tahun}}
                             </th>
                             <th rowspan="2" style="text-align:center;vertical-align: middle;width:75px">Total</th>
                         </tr>
@@ -68,7 +70,8 @@
                             <td style="text-align: right;">{{ $penjualan_makanan[$bulan] ?? "" ?
                                 number_format(floatval($penjualan_makanan[$bulan] ?? 0)) : "" }}</td>
                             @endforeach
-                            <td><b>{{ number_format(floatval(array_sum($penjualan_makanan))) }}</b></td>
+                            <td style="text-align: right;"><b>{{ number_format(floatval(array_sum($penjualan_makanan)))
+                                    }}</b></td>
                         </tr>
                         @endforeach
                         <tr>
@@ -84,7 +87,8 @@
                             <td style="text-align: right;">{{ $penjualan_minuman[$bulan] ?? "" ?
                                 number_format(floatval($penjualan_minuman[$bulan] ?? 0)) : "" }}</td>
                             @endforeach
-                            <td><b>{{ number_format(floatval(array_sum($penjualan_minuman))) }}</b></td>
+                            <td style="text-align: right;"><b>{{ number_format(floatval(array_sum($penjualan_minuman)))
+                                    }}</b></td>
                         </tr>
                         @endforeach
                         <tr class="table-dark">
